@@ -33,13 +33,6 @@ export class ProductsService {
     product: Product,
     updateProductDto: UpdateProductDto,
   ): Promise<Product> {
-    // if (
-    //   updateProductDto.status &&
-    //   !this.isValidStatusTransition(product.status, updateProductDto.status)
-    // ) {
-    //   throw new WrongProductStatusException();
-    // }
-
     Object.assign(product, updateProductDto);
     return await this.productRepository.save(product);
   }
@@ -58,6 +51,6 @@ export class ProductsService {
   }
 
   public async deleteProduct(product: Product): Promise<void> {
-    await this.productRepository.delete(product);
+    await this.productRepository.delete(product.id);
   }
 }

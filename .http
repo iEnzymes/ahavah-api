@@ -1,3 +1,9 @@
+<<<<<<< Updated upstream
+http://localhost:3000
+
+
+GET http://localhost:3000/products
+=======
 #Variable
 @baseUrl = http://localhost:3000
 @contentType = application/json
@@ -17,12 +23,11 @@ POST {{baseUrl}}/products
 Content-Type: {{contentType}}
 
 {
-  "name": "Oak Tree",
+  "name": "Pal Tree",
   "label":"Nature Venture",
   "description":"Candle that has nature",
-  "price": 123,
-  "image": "src/image/etc.png",
-  "status": "OPEN"
+  "price": 199,
+  "image": "src/image/etc.png"
 }
 
 ### Set the product id
@@ -34,9 +39,11 @@ POST {{baseUrl}}/products
 Content-Type: {{contentType}}
 
 {
-  "title": "Learn Nest Js",
-  "description":"Complete the NestJS",
-  "status": "xxx"
+  "name": "Oak Tree",
+  "label":"Nature Venture",
+  "description":"Candle that has nature",
+  "price": 123,
+  "image": "src/image/etc.png"
 }
 
 ### Update the product status
@@ -44,9 +51,10 @@ PATCH  {{baseUrl}}/products/{{productId}}
 Content-Type: {{contentType}}
 
 {
-  "status": "OPEN"
+  "status": "IN_PROGRESS"
 }
 
 ### Delete product
 DELETE {{baseUrl}}/products/{{productId}}
 Content-Type: {{contentType}}
+>>>>>>> Stashed changes

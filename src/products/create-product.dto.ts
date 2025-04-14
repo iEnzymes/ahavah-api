@@ -1,6 +1,4 @@
-import { IsEnum, IsInt, IsNotEmpty, IsString } from 'class-validator';
-
-import { ProductStatus } from './products.model';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateProductDto {
   @IsNotEmpty()
@@ -22,8 +20,4 @@ export class CreateProductDto {
   @IsNotEmpty()
   @IsString()
   image: string;
-
-  @IsNotEmpty()
-  @IsEnum(ProductStatus)
-  status: ProductStatus;
 }
