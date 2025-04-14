@@ -1,4 +1,52 @@
-http://localhost:3000
+#Variable
+@baseUrl = http://localhost:3000
+@contentType = application/json
+
+### Base url
+GET {{baseUrl}}
+
+### Find all products
+GET {{baseUrl}}/products
+
+### Find specific product
+GET {{baseUrl}}/products/{{productId}}
+
+### Create new product
+# @name createProduct
+POST {{baseUrl}}/products
+Content-Type: {{contentType}}
+
+{
+  "name": "Oak Tree",
+  "label":"Nature Venture",
+  "description":"Candle that has nature",
+  "price": 123,
+  "image": "src/image/etc.png",
+  "status": "OPEN"
+}
+
+### Set the product id
+@productId = {{ createProduct.response.body.id }}
 
 
-GET http://localhost:3000/products
+### Validation error - status is incorrect
+POST {{baseUrl}}/products
+Content-Type: {{contentType}}
+
+{
+  "title": "Learn Nest Js",
+  "description":"Complete the NestJS",
+  "status": "xxx"
+}
+
+### Update the product status
+PATCH  {{baseUrl}}/products/{{productId}}
+Content-Type: {{contentType}}
+
+{
+  "status": "OPEN"
+}
+
+### Delete product
+DELETE {{baseUrl}}/products/{{productId}}
+Content-Type: {{contentType}}
