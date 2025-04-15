@@ -1,9 +1,3 @@
-<<<<<<< Updated upstream
-http://localhost:3000
-
-
-GET http://localhost:3000/products
-=======
 #Variable
 @baseUrl = http://localhost:3000
 @contentType = application/json
@@ -11,6 +5,11 @@ GET http://localhost:3000/products
 ### Base url
 GET {{baseUrl}}
 
+
+
+###
+### PRODUCT API
+###
 ### Find all products
 GET {{baseUrl}}/products
 
@@ -23,11 +22,13 @@ POST {{baseUrl}}/products
 Content-Type: {{contentType}}
 
 {
-  "name": "Pal Tree",
+  "name": "Autom Tree",
   "label":"Nature Venture",
   "description":"Candle that has nature",
   "price": 199,
-  "image": "src/image/etc.png"
+  "image": "src/image/etc.png",
+  "collectionId": "01736b67-415d-48af-bf65-b415c25ca3ec",
+  "userId": "81ccd36a-bf34-4398-90b3-7680869ce3e5"
 }
 
 ### Set the product id
@@ -57,4 +58,9 @@ Content-Type: {{contentType}}
 ### Delete product
 DELETE {{baseUrl}}/products/{{productId}}
 Content-Type: {{contentType}}
->>>>>>> Stashed changes
+
+
+
+###
+### Collection API
+###
