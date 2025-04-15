@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { IsInt, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class CreateProductDto {
   @IsNotEmpty()
@@ -20,4 +20,12 @@ export class CreateProductDto {
   @IsNotEmpty()
   @IsString()
   image: string;
+
+  @IsNotEmpty()
+  @IsUUID()
+  collectionId: string;
+
+  @IsNotEmpty()
+  @IsUUID()
+  userId: string;
 }

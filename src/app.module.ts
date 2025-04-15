@@ -10,6 +10,8 @@ import { typeOrmConfig } from './config/database.config';
 import { TypedConfigService } from './config/typed-config.service';
 import { Product } from './products/product.entity';
 import { ScentsModule } from './scents/scents.module';
+import { Collection } from './collections/collections.entity';
+import { User } from './users/user.entity';
 
 @Module({
   imports: [
@@ -18,7 +20,7 @@ import { ScentsModule } from './scents/scents.module';
       inject: [ConfigService],
       useFactory: (configService: TypedConfigService) => ({
         ...configService.get('database'),
-        entities: [Product],
+        entities: [Product, Collection, User],
       }),
     }),
     ConfigModule.forRoot({

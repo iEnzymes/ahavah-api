@@ -1,7 +1,10 @@
+import { Collection } from 'src/collections/collections.entity';
+import { User } from 'src/users/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -50,4 +53,20 @@ export class Product {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @Column()
+  collectionId: string;
+
+  @ManyToOne(() => Collection, (collection) => collection.product, {
+    nullable: false,
+  })
+  collection: Collection;
+
+  @Column()
+  userId: string;
+
+  @ManyToOne(() => User, (user) => user.product, {
+    nullable: false,
+  })
+  user: User;
 }
