@@ -12,6 +12,7 @@ import { Product } from './products/product.entity';
 import { ScentsModule } from './scents/scents.module';
 import { Collection } from './collections/collections.entity';
 import { User } from './users/user.entity';
+import { ProductTag } from './products/product-tags.entity';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { User } from './users/user.entity';
       inject: [ConfigService],
       useFactory: (configService: TypedConfigService) => ({
         ...configService.get('database'),
-        entities: [Product, Collection, User],
+        entities: [Product, ProductTag, Collection, User],
       }),
     }),
     ConfigModule.forRoot({

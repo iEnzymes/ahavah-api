@@ -1,15 +1,16 @@
-import { Collection } from 'src/collections/collections.entity';
-import { User } from 'src/users/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-// import { ProductStatus } from './products.model';
+import { ProductTag } from './product-tags.entity';
+import { Collection } from 'src/collections/collections.entity';
+import { User } from 'src/users/user.entity';
 
 @Entity()
 export class Product {
@@ -69,4 +70,9 @@ export class Product {
     nullable: false,
   })
   user: User;
+
+  @OneToMany(() => ProductTag, (tag) => tag.product, {
+    cascade: true,
+  })
+  tags: ProductTag[];
 }

@@ -20,12 +20,12 @@ export class Collection {
   @Column()
   description: string;
 
+  @OneToMany(() => Product, (product) => product.collection)
+  product: Product;
+
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
-
-  @OneToMany(() => Product, (product) => product.collection)
-  product: Product;
 }
