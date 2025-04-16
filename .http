@@ -22,13 +22,18 @@ POST {{baseUrl}}/products
 Content-Type: {{contentType}}
 
 {
-  "name": "Autom Tree",
+  "name": "Pine Tree",
   "label":"Nature Venture",
   "description":"Candle that has nature",
   "price": 199,
   "image": "src/image/etc.png",
   "collectionId": "01736b67-415d-48af-bf65-b415c25ca3ec",
-  "userId": "81ccd36a-bf34-4398-90b3-7680869ce3e5"
+  "userId": "81ccd36a-bf34-4398-90b3-7680869ce3e5",
+  "tags": [{
+    "name":"Citrus"
+  },{
+    "name":"Fresh"
+  }]
 }
 
 ### Set the product id
@@ -40,11 +45,11 @@ POST {{baseUrl}}/products
 Content-Type: {{contentType}}
 
 {
-  "name": "Oak Tree",
+  "name": "Atis Tree",
   "label":"Nature Venture",
   "description":"Candle that has nature",
   "price": 123,
-  "image": "src/image/etc.png"
+  "image": "src/image/etc.png",
 }
 
 ### Update the product status
@@ -52,13 +57,42 @@ PATCH  {{baseUrl}}/products/{{productId}}
 Content-Type: {{contentType}}
 
 {
-  "status": "IN_PROGRESS"
+  "tags": [
+    {
+      "name":"Citrus"
+    },
+    {
+      "name":"Cleanse"
+    }
+  ]
 }
 
 ### Delete product
 DELETE {{baseUrl}}/products/{{productId}}
 Content-Type: {{contentType}}
 
+### Add specific tags to product
+# @name addTags
+
+POST {{baseUrl}}/products/{{productId}}/tags
+Content-Type: {{contentType}}
+
+[
+  {
+  "name":"Urgent"
+  },
+  {
+  "name":"Seasonal"
+  }
+]
+
+### Remove specific tags from product
+# @name removetags
+
+DELETE {{baseUrl}}/products/{{productId}}/tags
+Content-Type: {{contentType}}
+
+["Urgent", "Seasonal"]
 
 
 ###

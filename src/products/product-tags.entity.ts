@@ -1,16 +1,19 @@
-import { Product } from 'src/products/product.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   Index,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 
+import { Product } from './product.entity';
+
 @Entity()
-export class User {
+@Unique(['name', 'productId'])
+export class ProductTag {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -18,9 +21,13 @@ export class User {
   name: string;
 
   @Column()
-  email: string;
+  @Index()
+  productId: string;
 
-  @OneToMany(() => Product, (product) => product.user)
+  @ManyToOne(() => Product, (product) => product.tags, {
+    onDelete: 'CASCADE',
+    orphanedRowAction: 'delete',
+  })
   product: Product;
 
   @CreateDateColumn()

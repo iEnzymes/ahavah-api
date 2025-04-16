@@ -18,6 +18,7 @@ import { FindOneParams } from './find-one.params';
 import { UpdateProductDto } from './update-product.dto';
 import { WrongProductStatusException } from './exceptions/wrong-product-status.exception';
 import { Product } from './product.entity';
+import { CreateProductTagDto } from './create-product-tag.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -66,6 +67,25 @@ export class ProductsController {
   public async deleteProduct(@Param() params: FindOneParams): Promise<void> {
     const product = await this.findOneOrFail(params.id);
     await this.productsService.deleteProduct(product);
+  }
+
+  @Post(':id/tags')
+  async addTags(
+    @Param() { id }: FindOneParams,
+    @Body() tags: CreateProductTagDto[],
+  ): Promise<Product> {
+    const product = await this.findOneOrFail(id);
+    return await this.productsService.addTags(product, tags);
+  }
+
+  @Delete(':id/tags')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async removeTags(
+    @Param() { id }: FindOneParams,
+    @Body() tagNames: string[],
+  ): Promise<void> {
+    const product = await this.findOneOrFail(id);
+    await this.productsService.removeTags(product, tagNames);
   }
 
   private async findOneOrFail(id: string): Promise<Product> {
