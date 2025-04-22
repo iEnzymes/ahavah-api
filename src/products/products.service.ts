@@ -26,23 +26,24 @@ export class ProductsService {
     filters: FindProductParams,
     pagination: PaginationParams,
   ): Promise<[Product[], number]> {
-    const where: FindOptionsWhere<Product> = {};
+    const query = this.productRepository
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.tags', 'tags');
 
     if (filters.name) {
-      where.name = filters.name;
+      query.andWhere('product.name = :name', { name: filters.name });
     }
 
     if (filters.search?.trim()) {
-      where.label = Like(`%${filters.search}%`);
-      where.description = Like(`%${filters.search}%`);
+      query.andWhere(
+        '(product.label ILIKE :search OR product.description ILIKE :search)',
+        { search: `%${filters.search}%` },
+      );
     }
 
-    return await this.productRepository.findAndCount({
-      where,
-      relations: ['tags'],
-      skip: pagination.offset,
-      take: pagination.limit,
-    });
+    query.skip(pagination.offset).take(pagination.limit);
+
+    return query.getManyAndCount();
   }
 
   public async findOne(id: string): Promise<Product | null> {

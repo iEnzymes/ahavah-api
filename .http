@@ -24,7 +24,7 @@ GET {{baseUrl}}/products?limit=3&offset=0
 
 ### Find all by search query
 # @name getAllWithSearchQuery
-GET {{baseUrl}}/products?search=Ocean
+GET {{baseUrl}}/products?search=stream
 
 ### Find specific product
 GET {{baseUrl}}/products/{{productId}}
