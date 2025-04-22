@@ -16,7 +16,7 @@ GET {{baseUrl}}/products
 
 ### Find all by name
 # @name getAllByName
-GET {{baseUrl}}/products?name=Pine
+GET {{baseUrl}}/products?name=Mango Tree
 
 ### Find specific product
 GET {{baseUrl}}/products/{{productId}}
