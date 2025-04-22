@@ -11,7 +11,12 @@ GET {{baseUrl}}
 ### PRODUCT API
 ###
 ### Find all products
+# @name getAllTasks
 GET {{baseUrl}}/products
+
+### Find all by name
+# @name getAllByName
+GET {{baseUrl}}/products?name=Pine
 
 ### Find specific product
 GET {{baseUrl}}/products/{{productId}}

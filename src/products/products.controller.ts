@@ -10,6 +10,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 
 import { ProductsService } from './products.service';
@@ -19,14 +20,17 @@ import { UpdateProductDto } from './update-product.dto';
 import { WrongProductStatusException } from './exceptions/wrong-product-status.exception';
 import { Product } from './product.entity';
 import { CreateProductTagDto } from './create-product-tag.dto';
+import { FindProductParams } from './find-product.params';
 
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Get()
-  public async findAll(): Promise<Product[]> {
-    return this.productsService.findAll();
+  public async findAll(
+    @Query() filters: FindProductParams,
+  ): Promise<Product[]> {
+    return this.productsService.findAll(filters);
   }
 
   @Get('/:id')
