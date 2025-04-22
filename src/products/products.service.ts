@@ -10,6 +10,7 @@ import { Product } from './product.entity';
 import { CreateProductTagDto } from './create-product-tag.dto';
 import { ProductTag } from './product-tags.entity';
 import { FindProductParams } from './find-product.params';
+import { PaginationParams } from '../common/paginaiton.params';
 
 @Injectable()
 export class ProductsService {
@@ -21,12 +22,17 @@ export class ProductsService {
     private readonly tagsRepository: Repository<ProductTag>,
   ) {}
 
-  public async findAll(filters: FindProductParams): Promise<Product[]> {
-    return await this.productRepository.find({
+  public async findAll(
+    filters: FindProductParams,
+    pagination: PaginationParams,
+  ): Promise<[Product[], number]> {
+    return await this.productRepository.findAndCount({
       where: {
         name: filters.name,
       },
       relations: ['tags'],
+      skip: pagination.offset,
+      take: pagination.limit,
     });
   }
 
