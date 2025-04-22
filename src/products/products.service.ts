@@ -1,5 +1,5 @@
 import { Injectable, Post } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Like, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { ProductStatus } from './products.model';
@@ -26,10 +26,19 @@ export class ProductsService {
     filters: FindProductParams,
     pagination: PaginationParams,
   ): Promise<[Product[], number]> {
+    const where: FindOptionsWhere<Product> = {};
+
+    if (filters.name) {
+      where.name = filters.name;
+    }
+
+    if (filters.search?.trim()) {
+      where.label = Like(`%${filters.search}%`);
+      where.description = Like(`%${filters.search}%`);
+    }
+
     return await this.productRepository.findAndCount({
-      where: {
-        name: filters.name,
-      },
+      where,
       relations: ['tags'],
       skip: pagination.offset,
       take: pagination.limit,
