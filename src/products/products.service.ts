@@ -9,6 +9,7 @@ import { WrongProductStatusException } from './exceptions/wrong-product-status.e
 import { Product } from './product.entity';
 import { CreateProductTagDto } from './create-product-tag.dto';
 import { ProductTag } from './product-tags.entity';
+import { FindProductParams } from './find-product.params';
 
 @Injectable()
 export class ProductsService {
@@ -20,8 +21,13 @@ export class ProductsService {
     private readonly tagsRepository: Repository<ProductTag>,
   ) {}
 
-  public async findAll(): Promise<Product[]> {
-    return await this.productRepository.find();
+  public async findAll(filters: FindProductParams): Promise<Product[]> {
+    return await this.productRepository.find({
+      where: {
+        name: filters.name,
+      },
+      relations: ['tags'],
+    });
   }
 
   public async findOne(id: string): Promise<Product | null> {
