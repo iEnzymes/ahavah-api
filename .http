@@ -11,12 +11,20 @@ GET {{baseUrl}}
 ### PRODUCT API
 ###
 ### Find all products
-# @name getAllTasks
+# @name getAllProducts
 GET {{baseUrl}}/products
 
 ### Find all by name
 # @name getAllByName
 GET {{baseUrl}}/products?name=Mango Tree
+
+### Find all with limit and offset
+# @name getAllWithLimitAndOffset
+GET {{baseUrl}}/products?limit=4&offset=4
+
+### Find all with search query
+# @name getAllWithSearchQuery
+GET {{baseUrl}}/products?search=Ocean
 
 ### Find specific product
 GET {{baseUrl}}/products/{{productId}}
@@ -28,8 +36,8 @@ Content-Type: {{contentType}}
 
 {
   "name": "Pine Tree",
-  "label":"Nature Venture",
-  "description":"Candle that has nature",
+  "label":"Fress Ocean",
+  "description":"Fress Stream in your path",
   "price": 199,
   "image": "src/image/etc.png",
   "collectionId": "01736b67-415d-48af-bf65-b415c25ca3ec",
