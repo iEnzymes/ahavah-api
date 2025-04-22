@@ -21,6 +21,8 @@ import { WrongProductStatusException } from './exceptions/wrong-product-status.e
 import { Product } from './product.entity';
 import { CreateProductTagDto } from './create-product-tag.dto';
 import { FindProductParams } from './find-product.params';
+import { PaginationParams } from 'src/common/paginaiton.params';
+import { PaginationResponse } from 'src/common/pagination.response';
 
 @Controller('products')
 export class ProductsController {
@@ -29,8 +31,20 @@ export class ProductsController {
   @Get()
   public async findAll(
     @Query() filters: FindProductParams,
-  ): Promise<Product[]> {
-    return this.productsService.findAll(filters);
+    @Query() pagination: PaginationParams,
+  ): Promise<PaginationResponse<Product>> {
+    const [items, total] = await this.productsService.findAll(
+      filters,
+      pagination,
+    );
+
+    return {
+      data: items,
+      meta: {
+        total,
+        ...pagination,
+      },
+    };
   }
 
   @Get('/:id')
