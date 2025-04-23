@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import { IsOptional, IsString, MinLength } from 'class-validator';
 
 export class FindProductParams {
@@ -9,4 +10,15 @@ export class FindProductParams {
   @MinLength(3)
   @IsString()
   search?: string;
+
+  @IsOptional()
+  @Transform(({ value }: { value?: string }) => {
+    if (!value) return undefined;
+
+    return value
+      .split(',')
+      .map((tag) => tag.trim())
+      .filter((tag) => tag.length);
+  })
+  tags?: string[];
 }

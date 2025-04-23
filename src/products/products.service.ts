@@ -5,7 +5,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ProductStatus } from './products.model';
 import { CreateProductDto } from './create-product.dto';
 import { UpdateProductDto } from './update-product.dto';
-import { WrongProductStatusException } from './exceptions/wrong-product-status.exception';
 import { Product } from './product.entity';
 import { CreateProductTagDto } from './create-product-tag.dto';
 import { ProductTag } from './product-tags.entity';
@@ -39,6 +38,17 @@ export class ProductsService {
         '(product.label ILIKE :search OR product.description ILIKE :search)',
         { search: `%${filters.search}%` },
       );
+    }
+
+    if (filters.tags?.length) {
+      const subQuery = query
+        .subQuery()
+        .select('tags.productId')
+        .from('product_tag', 'tags')
+        .where('tags.name IN (:...names)', { names: filters.tags })
+        .getQuery();
+
+      query.andWhere(`product.id IN ${subQuery}`);
     }
 
     query.skip(pagination.offset).take(pagination.limit);

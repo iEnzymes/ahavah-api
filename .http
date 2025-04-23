@@ -26,6 +26,10 @@ GET {{baseUrl}}/products?limit=3&offset=0
 # @name getAllWithSearchQuery
 GET {{baseUrl}}/products?search=stream
 
+### Find all filtered by tags
+# @name getAllByTags
+GET {{baseUrl}}/products?tags=Urgent
+
 ### Find specific product
 GET {{baseUrl}}/products/{{productId}}
 
