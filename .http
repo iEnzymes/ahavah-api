@@ -30,6 +30,10 @@ GET {{baseUrl}}/products?search=stream
 # @name getAllByTags
 GET {{baseUrl}}/products?tags=Urgent
 
+### Find all with sorting ASC | DESC
+# @name getAllWithSort
+GET {{baseUrl}}/products?sortBy=createdAt&sortOrder=ASC
+
 ### Find specific product
 GET {{baseUrl}}/products/{{productId}}
 
