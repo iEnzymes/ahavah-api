@@ -51,8 +51,9 @@ export class ProductsService {
       query.andWhere(`product.id IN ${subQuery}`);
     }
 
-    query.skip(pagination.offset).take(pagination.limit);
+    query.orderBy(`product.${filters.sortBy}`, filters.sortOrder);
 
+    query.skip(pagination.offset).take(pagination.limit);
     return query.getManyAndCount();
   }
 

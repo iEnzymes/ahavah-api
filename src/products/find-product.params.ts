@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { IsOptional, IsString, MinLength } from 'class-validator';
+import { IsEnum, IsIn, IsOptional, IsString, MinLength } from 'class-validator';
 
 export class FindProductParams {
   @IsOptional()
@@ -21,4 +21,12 @@ export class FindProductParams {
       .filter((tag) => tag.length);
   })
   tags?: string[];
+
+  @IsOptional()
+  @IsIn(['createdAt', 'name', 'label'])
+  sortBy?: string = 'createdAt';
+
+  @IsOptional()
+  @IsEnum(['ASC', 'DESC'])
+  sortOrder?: 'ASC' | 'DESC' = 'DESC';
 }
