@@ -13,6 +13,7 @@ import { ScentsModule } from './scents/scents.module';
 import { Collection } from './collections/collections.entity';
 import { User } from './users/user.entity';
 import { ProductTag } from './products/product-tags.entity';
+import { authConfig } from './config/auth.config';
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { ProductTag } from './products/product-tags.entity';
       }),
     }),
     ConfigModule.forRoot({
-      load: [typeOrmConfig],
+      load: [typeOrmConfig, authConfig],
       validationSchema: appConfigSchema,
       validationOptions: {
         abortEarly: true,
