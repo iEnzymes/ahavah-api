@@ -20,6 +20,9 @@ export class User {
   @Column()
   email: string;
 
+  @Column()
+  password: string;
+
   @OneToMany(() => Product, (product) => product.user)
   product: Product;
 

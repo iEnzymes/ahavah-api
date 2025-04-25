@@ -14,6 +14,7 @@ import { Collection } from './collections/collections.entity';
 import { User } from './users/user.entity';
 import { ProductTag } from './products/product-tags.entity';
 import { authConfig } from './config/auth.config';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { authConfig } from './config/auth.config';
     }),
     ProductsModule,
     ScentsModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [
