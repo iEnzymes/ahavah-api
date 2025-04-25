@@ -9,7 +9,7 @@ describe('CreateUserDto', () => {
     dto = new CreateUserDto();
     dto.email = 'test@test.com';
     dto.name = 'Sherwin';
-    dto.password = '123456';
+    dto.password = '123456A#';
   });
 
   it('should validate complete valid data', async () => {
@@ -25,5 +25,16 @@ describe('CreateUserDto', () => {
     expect(errors.length).toBeGreaterThan(0);
     expect(errors[0].property).toBe('email');
     expect(errors[0].constraints).toHaveProperty('isEmail');
+  });
+
+  it('should return specific validation messages', async () => {
+    dto.password = 'abcdfa';
+    const errors = await validate(dto);
+    const passwordError = errors.find((error) => error.property === 'password');
+    expect(passwordError).not.toBeUndefined();
+    const messages = Object.values(passwordError?.constraints ?? {});
+    expect(messages).toContain(
+      'Password must contain at least 1 uppercase letter',
+    );
   });
 });
